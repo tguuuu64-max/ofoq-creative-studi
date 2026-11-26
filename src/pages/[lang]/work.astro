@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { langStaticPaths, useTranslations, type Lang } from '../../i18n/ui';
+import { projects } from '../../i18n/content';
+
+export const getStaticPaths = langStaticPaths;
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+---
+
+<BaseLayout lang={lang} title={t('work.title')}>
+  <PageHeader title={t('work.title')} lead={t('work.lead')} />
+  <section class="mx-auto grid max-w-6xl gap-6 px-4 pb-20 sm:grid-cols-2 sm:px-6">
+    {projects.map((p) => (
+      <article class="group">
+        <div class={`aspect-[4/3] rounded-2xl bg-gradient-to-br ${p.color} transition-transform group-hover:scale-[1.01]`} />
+        <h2 class="mt-4 text-lg font-bold">{p.title[lang]}</h2>
+        <p class="text-sm text-slate-500">{p.category[lang]}</p>
+      </article>
+    ))}
+  </section>
+</BaseLayout>

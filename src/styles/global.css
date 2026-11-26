@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans Arabic", "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-brand: #f59e0b;
+  --color-ink: #0f172a;
+}
+
+html { scroll-behavior: smooth; }
+body { @apply bg-white text-ink antialiased; }
