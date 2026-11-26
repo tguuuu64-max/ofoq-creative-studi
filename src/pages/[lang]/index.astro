@@ -1,0 +1,39 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { langStaticPaths, localePath, useTranslations, type Lang } from '../../i18n/ui';
+import { services } from '../../i18n/content';
+
+export const getStaticPaths = langStaticPaths;
+const lang = Astro.params.lang as Lang;
+const t = useTranslations(lang);
+---
+
+<BaseLayout lang={lang}>
+  <section class="bg-ink text-white">
+    <div class="mx-auto max-w-6xl px-4 py-24 sm:px-6 sm:py-32">
+      <p class="text-brand font-medium">{t('site.tagline')}</p>
+      <h1 class="mt-4 max-w-3xl text-4xl font-bold leading-tight sm:text-6xl">{t('home.title')}</h1>
+      <p class="mt-6 max-w-2xl text-lg text-slate-300">{t('home.lead')}</p>
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href={localePath(lang, 'work')} class="bg-brand rounded-full px-6 py-3 font-medium text-ink hover:opacity-90">
+          {t('home.ctaWork')}
+        </a>
+        <a href={localePath(lang, 'contact')} class="rounded-full border border-white/30 px-6 py-3 font-medium hover:border-white">
+          {t('home.ctaContact')}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="mx-auto max-w-6xl px-4 py-20 sm:px-6">
+    <h2 class="text-2xl font-bold sm:text-3xl">{t('home.servicesHeading')}</h2>
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      {services.map((s) => (
+        <article class="rounded-2xl border border-slate-200 p-6">
+          <h3 class="text-lg font-bold">{s.title[lang]}</h3>
+          <p class="mt-2 text-slate-600">{s.body[lang]}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
